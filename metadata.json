@@ -1,0 +1,6 @@
+{
+  "name": "Cosmic Orbit",
+  "description": "An interactive and educational app to teach seasons, day & night, moon phases, and eclipses with interactive celestial physics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
