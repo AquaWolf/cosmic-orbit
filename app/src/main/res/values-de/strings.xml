@@ -1,0 +1,130 @@
+<resources>
+    <string name="app_name">Cosmic Orbit</string>
+
+    <!-- Header & General -->
+    <string name="education_mode">LERNMODUS</string>
+    <string name="orbit_edu">OrbitEdu</string>
+    <string name="quick_query">Schnellfrage</string>
+    <string name="drag_sliders_hint">Bewege die Schieberegler unten, um Umlaufbahn und Eigendrehung zu steuern</string>
+
+    <!-- Current Event Floating Box -->
+    <string name="current_event_label">AKTUELLES EREIGNIS</string>
+    <string name="winter_solstice_title">Wintersonnenwende</string>
+    <string name="winter_solstice_desc">Maximale Neigung der Polachse von der Sonne weg</string>
+    <string name="vernal_equinox_title">Frühlings-Tagundnachtgleiche</string>
+    <string name="vernal_equinox_desc">Tag &amp; Nacht weltweit gleich lang</string>
+    <string name="summer_solstice_title">Sommersonnenwende</string>
+    <string name="summer_solstice_desc">Maximale Neigung der Polachse zur Sonne hin</string>
+    <string name="autumnal_equinox_title">Herbst-Tagundnachtgleiche</string>
+    <string name="autumnal_equinox_desc">Tag &amp; Nacht weltweit gleich lang</string>
+
+    <!-- Camera Modes -->
+    <string name="camera_mode_system">🌌 System</string>
+    <string name="camera_mode_earth">🌍 Nahaufnahme</string>
+    <string name="camera_mode_eclipse">🌒 Finsternis</string>
+
+    <!-- Sliders and Controls -->
+    <string name="time_simulation_label">ZEITSIMULATION</string>
+    <string name="slider_spin_format">🌎 Eigendrehung: %1$02d:00 Uhr</string>
+    <string name="slider_spin_format_de">🌎 Eigendrehung: %1$02d:00 Uhr</string>
+    <string name="btn_pause">⏸ Pause</string>
+    <string name="btn_play_24h">▶ Start 24H</string>
+    <string name="btn_play_year">▶ Start Jahr</string>
+    <string name="orbit_month_format">📅 Monat: %1$s</string>
+    <string name="moon_format">🌙 Mond: %1$s</string>
+    <string name="axis_tilt_format">📐 Achsenneigung: %1$d°</string>
+    <string name="earth_actual_hint">Erde tatsächlich: 23,5°</string>
+
+    <!-- Moon phases -->
+    <string name="moon_phase_new">Neumond 🌑</string>
+    <string name="moon_phase_1st_qtr">Erst. Viert. 🌓</string>
+    <string name="moon_phase_full">Vollmond 🌕</string>
+    <string name="moon_phase_3rd_qtr">Letzt. Viert. 🌗</string>
+    <string name="moon_phase_waxing">Zunehmend 🌒</string>
+    <string name="moon_phase_gibbous">Dreiviertel 🌔</string>
+    <string name="moon_phase_waning">Abnehmend 🌖</string>
+    <string name="moon_phase_crescent">Sichel 🌘</string>
+
+    <!-- Study Lab -->
+    <string name="interactive_study_lab">INTERAKTIVES LERNLABOR</string>
+    <string name="study_lab_hint">Tippe unten auf ein Thema, um die Planeten auszurichten und Lernsimulationen freizuschalten:</string>
+    <string name="active_study_label">AKTIVES LERNEN: %1$s</string>
+
+    <!-- Stella AI Chat -->
+    <string name="stella_orbit_guide">STELLA ORBIT-GUIDE</string>
+    <string name="stella_sub_title">Echtzeit-Astrophysik-Unterstützung mit KI</string>
+    <string name="stella_loading_hint">Stella berechnet die Lichtstrahlen...</string>
+    <string name="stella_chat_placeholder">Frage zu Finsternissen, Jahreszeiten, Schwerkraft...</string>
+    <string name="stella_greetings">Hallo, Weltraumforscher! 🚀 Ich bin Stella, deine kosmische Tutorin. Stelle mir Fragen zu Erdbahn, Tag und Nacht, Jahreszeiten, Mondphasen oder spektakulären Finsternissen! Klicke auch auf die Lektionen, um die Simulation auszurichten.</string>
+    <string name="send">Senden</string>
+
+    <!-- Month Names -->
+    <string name="month_jan">Jan</string>
+    <string name="month_feb">Feb</string>
+    <string name="month_mar">Mär</string>
+    <string name="month_apr">Apr</string>
+    <string name="month_may">Mai</string>
+    <string name="month_jun">Jun</string>
+    <string name="month_jul">Jul</string>
+    <string name="month_aug">Aug</string>
+    <string name="month_sep">Sep</string>
+    <string name="month_oct">Okt</string>
+    <string name="month_nov">Nov</string>
+    <string name="month_dec">Dez</string>
+
+    <!-- Lessons Data -->
+    <!-- Day & Night -->
+    <string name="lesson_day_night_title">Tag &amp; Nacht-Zyklus</string>
+    <string name="lesson_day_night_summary">Wie die Eigendrehung der Erde auf ihrer Achse Licht und Schatten erzeugt.</string>
+    <string name="lesson_day_night_bullet1">Die Erde dreht sich alle 24 Stunden einmal.</string>
+    <string name="lesson_day_night_bullet2">Die der Sonne zugewandte Seite hat Tag; die abgewandte Seite hat Nacht.</string>
+    <string name="lesson_day_night_bullet3">Die Trennlinie zwischen Tag und Nacht wird Terminator genannt.</string>
+    <string name="lesson_day_night_explanation">Wenn sich die Erde gegen den Uhrzeigersinn um ihre geneigte Achse dreht, bewegen sich verschiedene Länder ins Sonnenlicht (Sonnenaufgang) und wieder hinaus in den Erdschatten (Sonnenuntergang). Aktiviere \'Start 24H\' und beobachte, wie sich die Kontinente in den Nachtschatten hinein- und herausbewegen!</string>
+
+    <!-- Seasons -->
+    <string name="lesson_seasons_title">Die 4 Jahreszeiten</string>
+    <string name="lesson_seasons_summary">Warum die Neigung der Erdachse um 23,5° zu wechselnden Temperaturen führt.</string>
+    <string name="lesson_seasons_bullet1">Die Erdachse zeigt im Raum immer in eine feste Richtung (zum Polarstern).</string>
+    <string name="lesson_seasons_bullet2">Im Juni neigt sich der Nordpol ZUR Sonne (Nordsommer).</string>
+    <string name="lesson_seasons_bullet3">Im Dezember neigt sich der Nordpol VON der Sonne weg (Nordwinter).</string>
+    <string name="lesson_seasons_bullet4">Tagundnachtgleichen treten auf, wenn kein Pol zur Sonne geneigt ist (Tag und Nacht gleich lang).</string>
+    <string name="lesson_seasons_explanation">Jahreszeiten entstehen NICHT dadurch, dass die Erde im Sommer näher an der Sonne ist! Das ist ein weit verbreiteter Irrtum. Sie entstehen allein durch die Achsenneigung von 23,5°. Im Juni ist die Nordhalbkugel zur Sonne geneigt und empfängt direkteres, konzentriertes Sonnenlicht (Sommer). Gleichzeitig ist die Südhalbkugel weggeneigt (Winter). Wähle \'Start Jahr\', um diesen Übergang zu sehen!</string>
+
+    <!-- Moon Phases -->
+    <string name="lesson_moon_phases_title">Mondphasen</string>
+    <string name="lesson_moon_phases_summary">Wie die 29,5-tägige Umlaufbahn des Mondes sein Aussehen verändert.</string>
+    <string name="lesson_moon_phases_bullet1">Der Mond leuchtet nicht selbst; er reflektiert das Licht der Sonne.</string>
+    <string name="lesson_moon_phases_bullet2">Während der Mond die Erde umkreist, sehen wir unterschiedlich viel von seiner beleuchteten Hälfte.</string>
+    <string name="lesson_moon_phases_bullet3">Positionen: Sonne-Mond-Erde ist Neumond. Sonne-Erde-Mond ist Vollmond.</string>
+    <string name="lesson_moon_phases_explanation">Der Mond umkreist die Erde. Da immer die Hälfte des Mondes von der Sonne beleuchtet wird, ändert sich unsere Perspektive auf diese beleuchtete Hälfte. Bewege den Mondphasen-Regler oder beobachte den Mondlauf, um den Übergang von Neumond (unsichtbar) über das erste Viertel bis zum Vollmond (vollständig beleuchtet) zu sehen!</string>
+
+    <!-- Solar Eclipse -->
+    <string name="lesson_solar_eclipse_title">Sonnenfinsternis</string>
+    <string name="lesson_solar_eclipse_summary">Wenn der Mond einen Schatten auf die Erde wirft und die Sonne verdeckt.</string>
+    <string name="lesson_solar_eclipse_bullet1">Tritt nur während der Neumondphase auf.</string>
+    <string name="lesson_solar_eclipse_bullet2">Der Mond schiebt sich genau zwischen Erde und Sonne.</string>
+    <string name="lesson_solar_eclipse_bullet3">Der kleine, dunkle Kernschatten des Mondes wandert über die Erdoberfläche.</string>
+    <string name="lesson_solar_eclipse_explanation">Bei einer Sonnenfinsternis steht der Mond direkt zwischen Erde und Sonne und blockiert das Sonnenlicht. Da der Mond vergleichsweise klein ist, bedeckt sein Schatten (Umbra) nur einen sehr schmalen Streifen der Erde. Wenn man in diesem Schatten steht, wird die Sonne komplett dunkel und die Korona wird sichtbar!</string>
+
+    <!-- Lunar Eclipse -->
+    <string name="lesson_lunar_eclipse_title">Mondfinsternis (Blutmond)</string>
+    <string name="lesson_lunar_eclipse_summary">Wenn die Erde das Sonnenlicht vom Mond abblockt und ihn kupferrot färbt.</string>
+    <string name="lesson_lunar_eclipse_bullet1">Tritt nur während der Vollmondphase auf.</string>
+    <string name="lesson_lunar_eclipse_bullet2">Die Erde schiebt sich genau zwischen Sonne und Mond.</string>
+    <string name="lesson_lunar_eclipse_bullet3">Die Rayleigh-Streuung lenkt rotes Licht in den Erdschatten und färbt den Mond rot.</string>
+    <string name="lesson_lunar_eclipse_explanation">Eine Mondfinsternis tritt auf, wenn der Mond direkt hinter der Erde durch deren dunklen Kernschatten (Umbra) zieht. Anstatt völlig schwarz zu werden, leuchtet der Mond in einem spektakulären Rot-Orange! Dieser \'Blutmond\' entsteht, weil die Erdatmosphäre blaues Licht filtert, aber rotes Licht in den Schattenkegel bricht und auf den Mond lenkt.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Kosmische API-Einstellungen</string>
+    <string name="settings_subtitle">Konfiguriere deinen Gemini-API-Schlüssel, um Live-KI-Antworten von Stella zu aktivieren.</string>
+    <string name="api_key_label">Gemini-API-Schlüssel</string>
+    <string name="api_key_placeholder">Füge deinen AI Studio API-Schlüssel hier ein...</string>
+    <string name="save">Speichern</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="clear">Löschen</string>
+    <string name="get_key_hint">Du hast keinen API-Schlüssel? Du kannst einen kostenlosen Schlüssel bei Google AI Studio erstellen:</string>
+    <string name="get_key_button">Gemini-API-Schlüssel holen</string>
+    <string name="api_status_configured">API-Schlüssel aktiv (Stella KI online)</string>
+    <string name="api_status_missing">Lokale Antworten aktiv (Offline-/Fallback-Modus)</string>
+    <string name="api_saved_success">Einstellungen gespeichert! Stella ist bereit.</string>
+</resources>

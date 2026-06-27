@@ -27,6 +27,11 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import com.example.ui.theme.*
 import kotlinx.coroutines.launch
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 
 // Dynamic grid background utility matching Clean Minimalism specs
 fun Modifier.dotGridBackground(
@@ -66,6 +71,9 @@ fun CosmicDashboard(
     val chatMessages by viewModel.chatMessages.collectAsState()
     val chatInput by viewModel.chatInput.collectAsState()
     val isChatLoading by viewModel.isChatLoading.collectAsState()
+    val isChatAvailable by viewModel.isChatAvailable.collectAsState()
+    val customApiKey by viewModel.customApiKey.collectAsState()
+    var showSettingsDialog by remember { mutableStateOf(false) }
 
     val configuration = LocalConfiguration.current
     val isExpanded = configuration.screenWidthDp >= 750
@@ -81,6 +89,7 @@ fun CosmicDashboard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(SpaceDarkIndigo)
+                    .statusBarsPadding()
                     .dotGridBackground(opacity = 0.04f)
                     .padding(horizontal = 24.dp, vertical = 18.dp)
                     .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.03f)))
@@ -92,7 +101,7 @@ fun CosmicDashboard(
                 ) {
                     Column {
                         Text(
-                            text = "EDUCATION MODE",
+                            text = stringResource(R.string.education_mode),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             color = AccentTeal,
@@ -100,7 +109,7 @@ fun CosmicDashboard(
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
-                            text = "OrbitEdu",
+                            text = stringResource(R.string.orbit_edu),
                             fontSize = 24.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White,
@@ -116,14 +125,13 @@ fun CosmicDashboard(
                     ) {
                         IconButton(
                             onClick = {
-                                viewModel.updateChatInput("What is OrbitEdu?")
-                                viewModel.sendMessage()
+                                showSettingsDialog = true
                             },
                             modifier = Modifier.testTag("btn_header_settings")
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Settings,
-                                contentDescription = "Quick Query",
+                                contentDescription = stringResource(R.string.settings_title),
                                 tint = Color.White,
                                 modifier = Modifier.size(20.dp)
                             )
@@ -207,8 +215,10 @@ fun CosmicDashboard(
                         messages = chatMessages,
                         chatInput = chatInput,
                         isLoading = isChatLoading,
+                        isChatAvailable = isChatAvailable,
                         onInputChange = { viewModel.updateChatInput(it) },
-                        onSend = { viewModel.sendMessage() }
+                        onSend = { viewModel.sendMessage() },
+                        onConfigureClick = { showSettingsDialog = true }
                     )
                 }
             }
@@ -270,11 +280,25 @@ fun CosmicDashboard(
                     messages = chatMessages,
                     chatInput = chatInput,
                     isLoading = isChatLoading,
+                    isChatAvailable = isChatAvailable,
                     onInputChange = { viewModel.updateChatInput(it) },
-                    onSend = { viewModel.sendMessage() }
+                    onSend = { viewModel.sendMessage() },
+                    onConfigureClick = { showSettingsDialog = true }
                 )
             }
         }
+    }
+
+    if (showSettingsDialog) {
+        CosmicApiSettingsDialog(
+            initialKey = customApiKey,
+            isChatAvailable = isChatAvailable,
+            onDismiss = { showSettingsDialog = false },
+            onSave = { key ->
+                viewModel.saveCustomApiKey(key)
+                showSettingsDialog = false
+            }
+        )
     }
 }
 
@@ -315,20 +339,20 @@ fun SimulatorCard(
             val eventDesc: String
             when (monthIndex) {
                 11, 0, 1 -> {
-                    eventTitle = "Winter Solstice"
-                    eventDesc = "Max polar axial tilt away from Sun"
+                    eventTitle = stringResource(R.string.winter_solstice_title)
+                    eventDesc = stringResource(R.string.winter_solstice_desc)
                 }
                 2, 3, 4 -> {
-                    eventTitle = "Vernal Equinox"
-                    eventDesc = "Day & Night equal globally"
+                    eventTitle = stringResource(R.string.vernal_equinox_title)
+                    eventDesc = stringResource(R.string.vernal_equinox_desc)
                 }
                 5, 6, 7 -> {
-                    eventTitle = "Summer Solstice"
-                    eventDesc = "Max polar axial tilt towards Sun"
+                    eventTitle = stringResource(R.string.summer_solstice_title)
+                    eventDesc = stringResource(R.string.summer_solstice_desc)
                 }
                 else -> {
-                    eventTitle = "Autumnal Equinox"
-                    eventDesc = "Day & Night equal globally"
+                    eventTitle = stringResource(R.string.autumnal_equinox_title)
+                    eventDesc = stringResource(R.string.autumnal_equinox_desc)
                 }
             }
 
@@ -342,7 +366,7 @@ fun SimulatorCard(
             ) {
                 Column(modifier = Modifier.padding(10.dp)) {
                     Text(
-                        text = "CURRENT EVENT",
+                        text = stringResource(R.string.current_event_label),
                         fontSize = 8.5.sp,
                         fontWeight = FontWeight.Bold,
                         color = AccentTeal,
@@ -374,21 +398,21 @@ fun SimulatorCard(
             ) {
                 Row(modifier = Modifier.padding(2.dp)) {
                     CameraModeButton(
-                        label = "🌌 System",
+                        label = stringResource(R.string.camera_mode_system),
                         selected = cameraMode == CameraMode.SYSTEM,
                         testTag = "btn_system_view"
                     ) {
                         viewModel.setCameraMode(CameraMode.SYSTEM)
                     }
                     CameraModeButton(
-                        label = "🌍 Close-Up",
+                        label = stringResource(R.string.camera_mode_earth),
                         selected = cameraMode == CameraMode.EARTH,
                         testTag = "btn_earth_view"
                     ) {
                         viewModel.setCameraMode(CameraMode.EARTH)
                     }
                     CameraModeButton(
-                        label = "🌒 Eclipse",
+                        label = stringResource(R.string.camera_mode_eclipse),
                         selected = cameraMode == CameraMode.ECLIPSE,
                         testTag = "btn_eclipse_view"
                     ) {
@@ -399,7 +423,7 @@ fun SimulatorCard(
 
             // Small watermark displaying instructions
             Text(
-                text = "Drag sliders below to control orbit and spin rotation",
+                text = stringResource(R.string.drag_sliders_hint),
                 fontSize = 10.sp,
                 color = Color.White.copy(alpha = 0.35f),
                 modifier = Modifier
@@ -456,7 +480,7 @@ fun ControlDeckCard(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "TIME SIMULATION",
+                text = stringResource(R.string.time_simulation_label),
                 color = AccentTeal,
                 fontWeight = FontWeight.Bold,
                 fontSize = 11.sp,
@@ -471,10 +495,16 @@ fun ControlDeckCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     val hour = (timeOfDay * 24).toInt()
-                    val amPm = if (hour < 12) "AM" else "PM"
-                    val displayHour = if (hour == 0 || hour == 12) 12 else hour % 12
+                    val isDe = java.util.Locale.getDefault().language == "de"
+                    val spinText = if (isDe) {
+                        stringResource(R.string.slider_spin_format_de, hour)
+                    } else {
+                        val amPm = if (hour < 12) "AM" else "PM"
+                        val displayHour = if (hour == 0 || hour == 12) 12 else hour % 12
+                        stringResource(R.string.slider_spin_format, displayHour, amPm)
+                    }
                     Text(
-                        text = "🌎 Spin: $displayHour:00 $amPm",
+                        text = spinText,
                         color = Color.White,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium
@@ -493,7 +523,7 @@ fun ControlDeckCard(
                             .testTag("btn_toggle_day_play")
                     ) {
                         Text(
-                            text = if (isPlayingDay) "⏸ Pause" else "▶ Play 24H",
+                            text = if (isPlayingDay) stringResource(R.string.btn_pause) else stringResource(R.string.btn_play_24h),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -519,12 +549,22 @@ fun ControlDeckCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     val months = listOf(
-                        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        stringResource(R.string.month_jan),
+                        stringResource(R.string.month_feb),
+                        stringResource(R.string.month_mar),
+                        stringResource(R.string.month_apr),
+                        stringResource(R.string.month_may),
+                        stringResource(R.string.month_jun),
+                        stringResource(R.string.month_jul),
+                        stringResource(R.string.month_aug),
+                        stringResource(R.string.month_sep),
+                        stringResource(R.string.month_oct),
+                        stringResource(R.string.month_nov),
+                        stringResource(R.string.month_dec)
                     )
                     val monthIndex = (timeOfYear * 12).toInt() % 12
                     Text(
-                        text = "📅 Orbit Month: ${months[monthIndex]}",
+                        text = stringResource(R.string.orbit_month_format, months[monthIndex]),
                         color = Color.White,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium
@@ -543,7 +583,7 @@ fun ControlDeckCard(
                             .testTag("btn_toggle_year_play")
                     ) {
                         Text(
-                            text = if (isPlayingYear) "⏸ Pause" else "▶ Play Year",
+                            text = if (isPlayingYear) stringResource(R.string.btn_pause) else stringResource(R.string.btn_play_year),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -566,17 +606,17 @@ fun ControlDeckCard(
                 // Moon Phase slider
                 Column(modifier = Modifier.weight(1f)) {
                     val phaseName = when {
-                        moonPhase < 0.05f || moonPhase > 0.95f -> "New 🌑"
-                        moonPhase in 0.22f..0.28f -> "1st Qtr 🌓"
-                        moonPhase in 0.45f..0.55f -> "Full 🌕"
-                        moonPhase in 0.72f..0.78f -> "3rd Qtr 🌗"
-                        moonPhase < 0.25f -> "Waxing 🌒"
-                        moonPhase < 0.5f -> "Gibbous 🌔"
-                        moonPhase < 0.75f -> "Waning 🌖"
-                        else -> "Crescent 🌘"
+                        moonPhase < 0.05f || moonPhase > 0.95f -> stringResource(R.string.moon_phase_new)
+                        moonPhase in 0.22f..0.28f -> stringResource(R.string.moon_phase_1st_qtr)
+                        moonPhase in 0.45f..0.55f -> stringResource(R.string.moon_phase_full)
+                        moonPhase in 0.72f..0.78f -> stringResource(R.string.moon_phase_3rd_qtr)
+                        moonPhase < 0.25f -> stringResource(R.string.moon_phase_waxing)
+                        moonPhase < 0.5f -> stringResource(R.string.moon_phase_gibbous)
+                        moonPhase < 0.75f -> stringResource(R.string.moon_phase_waning)
+                        else -> stringResource(R.string.moon_phase_crescent)
                     }
                     Text(
-                        text = "🌙 Moon: $phaseName",
+                        text = stringResource(R.string.moon_format, phaseName),
                         color = Color.White,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Medium
@@ -596,7 +636,7 @@ fun ControlDeckCard(
                 // Axial Tilt Slider
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "📐 Axis Tilt: ${axialTilt.toInt()}°",
+                        text = stringResource(R.string.axis_tilt_format, axialTilt.toInt()),
                         color = Color.White,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Medium
@@ -613,7 +653,7 @@ fun ControlDeckCard(
                         modifier = Modifier.testTag("slider_axial_tilt")
                     )
                     Text(
-                        text = "Earth actual: 23.5°",
+                        text = stringResource(R.string.earth_actual_hint),
                         fontSize = 9.sp,
                         color = Color.White.copy(alpha = 0.4f),
                         textAlign = TextAlign.Center,
@@ -644,14 +684,14 @@ fun LessonsCard(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "INTERACTIVE STUDY LAB",
+                text = stringResource(R.string.interactive_study_lab),
                 color = AccentTeal,
                 fontWeight = FontWeight.Bold,
                 fontSize = 11.sp,
                 letterSpacing = 1.2.sp
             )
             Text(
-                text = "Tap a topic below to auto-align the planets and unlock custom simulations:",
+                text = stringResource(R.string.study_lab_hint),
                 fontSize = 12.sp,
                 color = Color.White.copy(alpha = 0.6f)
             )
@@ -693,7 +733,7 @@ fun LessonsCard(
                             }
                             Text(text = emoji, fontSize = 14.sp)
                             Text(
-                                text = lesson.title,
+                                text = stringResource(lesson.titleRes),
                                 fontSize = 11.5.sp,
                                 fontWeight = FontWeight.Bold,
                                 letterSpacing = 0.2.sp
@@ -726,7 +766,7 @@ fun ActiveLessonExplanationPanel(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "ACTIVE STUDY: ${lesson.title.uppercase()}",
+                    text = stringResource(R.string.active_study_label, stringResource(lesson.titleRes).uppercase()),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = AccentTeal,
@@ -749,7 +789,7 @@ fun ActiveLessonExplanationPanel(
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = lesson.summary,
+                text = stringResource(lesson.summaryRes),
                 fontSize = 13.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
@@ -759,7 +799,7 @@ fun ActiveLessonExplanationPanel(
             Spacer(modifier = Modifier.height(12.dp))
 
             // Bullet list
-            lesson.bulletPoints.forEach { point ->
+            lesson.bulletPointsRes.forEach { pointRes ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -768,7 +808,7 @@ fun ActiveLessonExplanationPanel(
                 ) {
                     Text(text = "✦ ", color = SunYellow, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                     Text(
-                        text = point,
+                        text = stringResource(pointRes),
                         fontSize = 12.sp,
                         color = Color.White.copy(alpha = 0.8f),
                         lineHeight = 16.sp
@@ -784,7 +824,7 @@ fun ActiveLessonExplanationPanel(
                 border = BorderStroke(1.dp, Color.White.copy(alpha = 0.05f))
             ) {
                 Text(
-                    text = lesson.explanationText,
+                    text = stringResource(lesson.explanationTextRes),
                     fontSize = 12.sp,
                     color = Color.White.copy(alpha = 0.75f),
                     lineHeight = 18.sp,
@@ -800,8 +840,10 @@ fun CosmicTutorChatCard(
     messages: List<ChatMessage>,
     chatInput: String,
     isLoading: Boolean,
+    isChatAvailable: Boolean,
     onInputChange: (String) -> Unit,
-    onSend: () -> Unit
+    onSend: () -> Unit,
+    onConfigureClick: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
     val scrollState = rememberLazyListState()
@@ -835,18 +877,57 @@ fun CosmicTutorChatCard(
             ) {
                 Text(text = "🛰️ ", fontSize = 22.sp)
                 Spacer(modifier = Modifier.width(8.dp))
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "STELLA ORBIT GUIDE",
+                        text = stringResource(R.string.stella_orbit_guide),
                         fontWeight = FontWeight.Bold,
                         fontSize = 11.sp,
                         color = AccentTeal,
                         letterSpacing = 1.2.sp
                     )
                     Text(
-                        text = "Real-time AI astrophysics support",
+                        text = stringResource(R.string.stella_sub_title),
                         fontSize = 11.sp,
                         color = Color.White.copy(alpha = 0.5f)
+                    )
+                }
+
+                // Status Pill
+                Surface(
+                    shape = RoundedCornerShape(50),
+                    color = if (isChatAvailable) Color(0xFF1B5E20).copy(alpha = 0.2f) else Color(0xFFE65100).copy(alpha = 0.2f),
+                    border = BorderStroke(1.dp, if (isChatAvailable) Color(0xFF81C784).copy(alpha = 0.3f) else Color(0xFFFFB74D).copy(alpha = 0.3f)),
+                    modifier = Modifier.padding(end = 8.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(if (isChatAvailable) Color(0xFF4CAF50) else Color(0xFFFF9800), shape = RoundedCornerShape(50))
+                        )
+                        Text(
+                            text = if (isChatAvailable) "AI ONLINE" else "OFFLINE MODE",
+                            fontSize = 8.5.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isChatAvailable) Color(0xFF81C784) else Color(0xFFFFB74D)
+                        )
+                    }
+                }
+
+                // Chat Settings Gear Button
+                IconButton(
+                    onClick = onConfigureClick,
+                    modifier = Modifier.size(28.dp).testTag("btn_chat_settings")
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Configure API Key",
+                        tint = Color.White.copy(alpha = 0.6f),
+                        modifier = Modifier.size(16.dp)
                     )
                 }
             }
@@ -891,7 +972,7 @@ fun CosmicTutorChatCard(
                                     strokeWidth = 2.dp
                                 )
                                 Text(
-                                    text = "Stella is tracing light rays...",
+                                    text = stringResource(R.string.stella_loading_hint),
                                     fontSize = 11.sp,
                                     color = Color.White
                                 )
@@ -914,7 +995,7 @@ fun CosmicTutorChatCard(
                     onValueChange = onInputChange,
                     placeholder = {
                         Text(
-                            text = "Ask about eclipses, seasons, gravity...",
+                            text = stringResource(R.string.stella_chat_placeholder),
                             fontSize = 12.sp,
                             color = Color.White.copy(alpha = 0.4f)
                         )
@@ -948,7 +1029,7 @@ fun CosmicTutorChatCard(
                         .height(48.dp)
                         .testTag("chat_send_button")
                 ) {
-                    Icon(imageVector = Icons.Default.Send, contentDescription = "Send Message", tint = SpaceBlack, modifier = Modifier.size(18.dp))
+                    Icon(imageVector = Icons.Default.Send, contentDescription = stringResource(R.string.send), tint = SpaceBlack, modifier = Modifier.size(18.dp))
                 }
             }
         }
@@ -985,6 +1066,217 @@ fun ChatBubble(message: ChatMessage) {
                     color = Color.White,
                     lineHeight = 16.sp
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun CosmicApiSettingsDialog(
+    initialKey: String,
+    isChatAvailable: Boolean,
+    onDismiss: () -> Unit,
+    onSave: (String) -> Unit
+) {
+    val context = LocalContext.current
+    var keyText by remember { mutableStateOf(initialKey) }
+    var keyVisible by remember { mutableStateOf(false) }
+
+    androidx.compose.ui.window.Dialog(onDismissRequest = onDismiss) {
+        Card(
+            shape = RoundedCornerShape(28.dp),
+            colors = CardDefaults.cardColors(containerColor = SpaceDarkIndigo),
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.12f)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .testTag("settings_api_dialog")
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Header
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(SpaceNavy, shape = RoundedCornerShape(50)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = null,
+                            tint = AccentTeal,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    Column {
+                        Text(
+                            text = stringResource(R.string.settings_title),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "Configure custom API connection",
+                            fontSize = 11.sp,
+                            color = Color.White.copy(alpha = 0.5f)
+                        )
+                    }
+                }
+
+                // Subtitle
+                Text(
+                    text = stringResource(R.string.settings_subtitle),
+                    fontSize = 12.sp,
+                    color = Color.White.copy(alpha = 0.7f),
+                    lineHeight = 18.sp
+                )
+
+                // Current API Status Banner
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = if (isChatAvailable) Color(0xFF1B5E20).copy(alpha = 0.15f) else Color(0xFFE65100).copy(alpha = 0.15f),
+                    border = BorderStroke(1.dp, if (isChatAvailable) Color(0xFF81C784).copy(alpha = 0.25f) else Color(0xFFFFB74D).copy(alpha = 0.25f)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .background(if (isChatAvailable) Color(0xFF4CAF50) else Color(0xFFFF9800), shape = RoundedCornerShape(50))
+                        )
+                        Text(
+                            text = if (isChatAvailable) stringResource(R.string.api_status_configured) else stringResource(R.string.api_status_missing),
+                            fontSize = 11.5.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = if (isChatAvailable) Color(0xFF81C784) else Color(0xFFFFB74D)
+                        )
+                    }
+                }
+
+                // Field Label
+                Text(
+                    text = stringResource(R.string.api_key_label),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = AccentTeal
+                )
+
+                // Text field
+                TextField(
+                    value = keyText,
+                    onValueChange = { keyText = it },
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.api_key_placeholder),
+                            fontSize = 12.sp,
+                            color = Color.White.copy(alpha = 0.4f)
+                        )
+                    },
+                    visualTransformation = if (keyVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        TextButton(
+                            onClick = { keyVisible = !keyVisible },
+                            colors = ButtonDefaults.textButtonColors(contentColor = AccentTeal)
+                        ) {
+                            Text(
+                                text = if (keyVisible) "HIDE" else "SHOW",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = SpaceBlack,
+                        unfocusedContainerColor = SpaceBlack,
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedIndicatorColor = AccentTeal,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("api_key_input_field"),
+                    shape = RoundedCornerShape(12.dp)
+                )
+
+                // AI Studio link hints
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.get_key_hint),
+                        fontSize = 11.sp,
+                        color = Color.White.copy(alpha = 0.5f)
+                    )
+                    Text(
+                        text = "https://aistudio.google.com/",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = SunYellow,
+                        modifier = Modifier
+                            .clickable {
+                                try {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://aistudio.google.com/"))
+                                    context.startActivity(intent)
+                                } catch (e: Exception) {
+                                    // Fallback
+                                }
+                            }
+                            .testTag("get_api_key_link_text")
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Actions Buttons (Cancel, Clear, Save)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextButton(
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.textButtonColors(contentColor = Color.White.copy(alpha = 0.6f))
+                    ) {
+                        Text(text = stringResource(R.string.cancel), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    if (keyText.isNotEmpty()) {
+                        TextButton(
+                            onClick = {
+                                keyText = ""
+                            },
+                            colors = ButtonDefaults.textButtonColors(contentColor = Color(0xFFEF5350))
+                        ) {
+                            Text(text = stringResource(R.string.clear), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+
+                    Button(
+                        onClick = {
+                            onSave(keyText)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = AccentTeal, contentColor = SpaceBlack),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(text = stringResource(R.string.save), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
             }
         }
     }

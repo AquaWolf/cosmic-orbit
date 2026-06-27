@@ -2,6 +2,8 @@ package com.example
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import android.app.Application
+import androidx.test.core.app.ApplicationProvider
 import com.example.ui.theme.MyApplicationTheme
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
@@ -23,7 +25,8 @@ class GreetingScreenshotTest {
   fun greeting_screenshot() {
     composeTestRule.setContent {
       MyApplicationTheme {
-        val viewModel = CosmicViewModel()
+        val app = ApplicationProvider.getApplicationContext<Application>()
+        val viewModel = CosmicViewModel(app)
         CosmicDashboard(viewModel = viewModel)
       }
     }

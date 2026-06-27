@@ -1,3 +1,130 @@
 <resources>
     <string name="app_name">Cosmic Orbit</string>
+
+    <!-- Header & General -->
+    <string name="education_mode">EDUCATION MODE</string>
+    <string name="orbit_edu">OrbitEdu</string>
+    <string name="quick_query">Quick Query</string>
+    <string name="drag_sliders_hint">Drag sliders below to control orbit and spin rotation</string>
+
+    <!-- Current Event Floating Box -->
+    <string name="current_event_label">CURRENT EVENT</string>
+    <string name="winter_solstice_title">Winter Solstice</string>
+    <string name="winter_solstice_desc">Max polar axial tilt away from Sun</string>
+    <string name="vernal_equinox_title">Vernal Equinox</string>
+    <string name="vernal_equinox_desc">Day &amp; Night equal globally</string>
+    <string name="summer_solstice_title">Summer Solstice</string>
+    <string name="summer_solstice_desc">Max polar axial tilt towards Sun</string>
+    <string name="autumnal_equinox_title">Autumnal Equinox</string>
+    <string name="autumnal_equinox_desc">Day &amp; Night equal globally</string>
+
+    <!-- Camera Modes -->
+    <string name="camera_mode_system">🌌 System</string>
+    <string name="camera_mode_earth">🌍 Close-Up</string>
+    <string name="camera_mode_eclipse">🌒 Eclipse</string>
+
+    <!-- Sliders and Controls -->
+    <string name="time_simulation_label">TIME SIMULATION</string>
+    <string name="slider_spin_format">🌎 Spin: %1$d:00 %2$s</string>
+    <string name="slider_spin_format_de">🌎 Eigendrehung: %1$02d:00 Uhr</string>
+    <string name="btn_pause">⏸ Pause</string>
+    <string name="btn_play_24h">▶ Play 24H</string>
+    <string name="btn_play_year">▶ Play Year</string>
+    <string name="orbit_month_format">📅 Orbit Month: %1$s</string>
+    <string name="moon_format">🌙 Moon: %1$s</string>
+    <string name="axis_tilt_format">📐 Axis Tilt: %1$d°</string>
+    <string name="earth_actual_hint">Earth actual: 23.5°</string>
+
+    <!-- Moon phases -->
+    <string name="moon_phase_new">New 🌑</string>
+    <string name="moon_phase_1st_qtr">1st Qtr 🌓</string>
+    <string name="moon_phase_full">Full 🌕</string>
+    <string name="moon_phase_3rd_qtr">3rd Qtr 🌗</string>
+    <string name="moon_phase_waxing">Waxing 🌒</string>
+    <string name="moon_phase_gibbous">Gibbous 🌔</string>
+    <string name="moon_phase_waning">Waning 🌖</string>
+    <string name="moon_phase_crescent">Crescent 🌘</string>
+
+    <!-- Study Lab -->
+    <string name="interactive_study_lab">INTERACTIVE STUDY LAB</string>
+    <string name="study_lab_hint">Tap a topic below to auto-align the planets and unlock custom simulations:</string>
+    <string name="active_study_label">ACTIVE STUDY: %1$s</string>
+
+    <!-- Stella AI Chat -->
+    <string name="stella_orbit_guide">STELLA ORBIT GUIDE</string>
+    <string name="stella_sub_title">Real-time AI astrophysics support</string>
+    <string name="stella_loading_hint">Stella is tracing light rays...</string>
+    <string name="stella_chat_placeholder">Ask about eclipses, seasons, gravity...</string>
+    <string name="stella_greetings">Hello, space explorer! 🚀 I\'m Stella, your Cosmic Tutor. Ask me any question about the Earth\'s orbit, day and night, the seasons, Moon phases, or spectacular eclipses! You can also click the lessons on the side to align the simulation.</string>
+    <string name="send">Send</string>
+
+    <!-- Month Names -->
+    <string name="month_jan">Jan</string>
+    <string name="month_feb">Feb</string>
+    <string name="month_mar">Mar</string>
+    <string name="month_apr">Apr</string>
+    <string name="month_may">May</string>
+    <string name="month_jun">Jun</string>
+    <string name="month_jul">Jul</string>
+    <string name="month_aug">Aug</string>
+    <string name="month_sep">Sep</string>
+    <string name="month_oct">Oct</string>
+    <string name="month_nov">Nov</string>
+    <string name="month_dec">Dec</string>
+
+    <!-- Lessons Data -->
+    <!-- Day & Night -->
+    <string name="lesson_day_night_title">Day &amp; Night Cycle</string>
+    <string name="lesson_day_night_summary">How Earth\'s rotation on its axis creates light and shadow.</string>
+    <string name="lesson_day_night_bullet1">The Earth rotates once every 24 hours.</string>
+    <string name="lesson_day_night_bullet2">The side facing the Sun is in Day; the side facing away is in Night.</string>
+    <string name="lesson_day_night_bullet3">The dividing line between day and night is called the terminator.</string>
+    <string name="lesson_day_night_explanation">As the Earth spins counter-clockwise on its tilted axis, different countries rotate into the Sun\'s light (sunrise) and rotate out into its shadow (sunset). Try turning on \'Play Axis Spin\' and watch the continents move in and out of the night shadow!</string>
+
+    <!-- Seasons -->
+    <string name="lesson_seasons_title">The 4 Seasons</string>
+    <string name="lesson_seasons_summary">Why the Earth\'s 23.5° axial tilt causes changing temperatures.</string>
+    <string name="lesson_seasons_bullet1">The Earth\'s axis points in a fixed direction in space (toward Polaris).</string>
+    <string name="lesson_seasons_bullet2">In June, the North Pole tilts TOWARD the Sun (Northern Summer).</string>
+    <string name="lesson_seasons_bullet3">In December, the North Pole tilts AWAY from the Sun (Northern Winter).</string>
+    <string name="lesson_seasons_bullet4">Equinoxes occur when neither pole is tilted toward the Sun, creating equal day and night.</string>
+    <string name="lesson_seasons_explanation">Seasons are NOT caused by Earth being closer or further from the Sun! It is entirely due to the 23.5° axial tilt. In June, the Northern hemisphere tilts toward the Sun, receiving more direct, concentrated sunlight (Summer). At the exact same time, the Southern hemisphere is tilted away, receiving slanted rays (Winter). Select \'Play Orbit\' to see this transition!</string>
+
+    <!-- Moon Phases -->
+    <string name="lesson_moon_phases_title">Moon Phases</string>
+    <string name="lesson_moon_phases_summary">How the Moon\'s 29.5-day orbit changes its appearance.</string>
+    <string name="lesson_moon_phases_bullet1">The Moon does not emit its own light; it reflects the Sun\'s rays.</string>
+    <string name="lesson_moon_phases_bullet2">As the Moon orbits Earth, we see different amounts of its lit hemisphere.</string>
+    <string name="lesson_moon_phases_bullet3">Positions: Sun-Moon-Earth is a New Moon. Sun-Earth-Moon is a Full Moon.</string>
+    <string name="lesson_moon_phases_explanation">The Moon orbits the Earth. Since half of the Moon is always illuminated by the Sun, our perspective of that illuminated half changes. Move the Moon Phase slider or watch the Moon revolve around the Earth to watch it cycle from New Moon (invisible) to First Quarter (half lit) to Full Moon (fully lit)!</string>
+
+    <!-- Solar Eclipse -->
+    <string name="lesson_solar_eclipse_title">Solar Eclipse</string>
+    <string name="lesson_solar_eclipse_summary">When the Moon casts a shadow on Earth, blocking the Sun.</string>
+    <string name="lesson_solar_eclipse_bullet1">Only occurs during a New Moon phase.</string>
+    <string name="lesson_solar_eclipse_bullet2">The Moon aligns exactly between the Earth and the Sun.</string>
+    <string name="lesson_solar_eclipse_bullet3">The Moon\'s small, dark shadow sweeps across Earth\'s surface.</string>
+    <string name="lesson_solar_eclipse_explanation">During a Solar Eclipse, the Moon is directly between the Earth and the Sun, blocking the Sun\'s light. Because the Moon is relatively small, its shadow (umbra) only covers a tiny strip of the Earth. If you are standing in that shadow, the Sun goes completely dark, revealing the solar corona!</string>
+
+    <!-- Lunar Eclipse -->
+    <string name="lesson_lunar_eclipse_title">Lunar Eclipse (Blood Moon)</string>
+    <string name="lesson_lunar_eclipse_summary">When Earth blocks sunlight from the Moon, turning it coppery-red.</string>
+    <string name="lesson_lunar_eclipse_bullet1">Only occurs during a Full Moon phase.</string>
+    <string name="lesson_lunar_eclipse_bullet2">The Earth aligns exactly between the Sun and the Moon.</string>
+    <string name="lesson_lunar_eclipse_bullet3">Rayleigh scattering bends red light into Earth\'s shadow, turning the Moon red.</string>
+    <string name="lesson_lunar_eclipse_explanation">A Lunar Eclipse occurs when the Moon passes directly behind the Earth, entering Earth\'s dark shadow (umbra). Instead of going black, the Moon glows a spectacular reddish-orange! This \'Blood Moon\' happens because Earth\'s atmosphere filters out blue light but refracts red light into the shadow cone, focusing it onto the Moon.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Cosmic API Settings</string>
+    <string name="settings_subtitle">Configure your Gemini API Key to enable live conversational AI responses from Stella.</string>
+    <string name="api_key_label">Gemini API Key</string>
+    <string name="api_key_placeholder">Paste your AI Studio API key here...</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="get_key_hint">Don\'t have an API key? You can get a free key from Google AI Studio:</string>
+    <string name="get_key_button">Get Gemini API Key</string>
+    <string name="api_status_configured">API Key Active (Stella AI online)</string>
+    <string name="api_status_missing">Using Local Smart Answers (Offline/Fallback mode)</string>
+    <string name="api_saved_success">Settings saved! Stella is ready.</string>
 </resources>
